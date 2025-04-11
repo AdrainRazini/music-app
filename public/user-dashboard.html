@@ -3,156 +3,396 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Central do Usuário</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <title>🎵 Dashboard de Música</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <style>
     :root {
-      --cor-primaria: #4A90E2;
-      --cor-fundo: #f4f6f8;
-      --cor-texto: #333;
-      --cor-botao: #4A90E2;
-      --cor-botao-hover: #357ABD;
-      --cor-box: #fff;
-      --cor-logout: #e74c3c;
-      --cor-logout-hover: #c0392b;
+      --bg-color: #f4f4f4;
+      --text-color: #1a1a1a;
+      --menu-bg: #ffffff;
+      --primary-color: #4CAF50;
+      --card-bg: #ffffff;
+      --shadow: rgba(0, 0, 0, 0.1);
+    }
+
+    body.dark {
+      --bg-color: #121212;
+      --text-color: #eaeaea;
+      --menu-bg: #1e1e1e;
+      --primary-color: #81c784;
+      --card-bg: #2c2c2c;
+      --shadow: rgba(255, 255, 255, 0.1);
+    }
+
+    * {
+      box-sizing: border-box;
     }
 
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: var(--cor-fundo);
       margin: 0;
-      padding: 0;
       display: flex;
-      align-items: center;
-      justify-content: center;
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      transition: all 0.3s ease;
+    }
+
+    aside {
+      width: 240px;
+      background-color: var(--menu-bg);
       height: 100vh;
+      padding: 30px 20px;
+      box-shadow: 2px 0 10px var(--shadow);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      position: fixed;
     }
 
-    #dashboard {
-      background-color: var(--cor-box);
-      padding: 40px;
-      border-radius: 16px;
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
-      text-align: center;
-      max-width: 400px;
-      width: 90%;
-      animation: fadeIn 0.5s ease;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(-10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    h2 {
-      margin-bottom: 20px;
-      color: var(--cor-primaria);
-    }
-
-    #user-avatar {
-      width: 120px;
-      height: 120px;
+    aside img {
       border-radius: 50%;
-      object-fit: cover;
-      border: 3px solid var(--cor-primaria);
-      margin-bottom: 20px;
+      width: 100px;
+      border: 3px solid var(--primary-color);
     }
 
-    .user-info {
-      margin-bottom: 30px;
-      color: var(--cor-texto);
+    aside h2, aside p {
+      text-align: center;
+      margin: 5px 0;
     }
 
-    .user-info p {
-      margin: 8px 0;
-    }
-
-    button {
-      padding: 12px 24px;
-      margin: 8px;
-      background-color: var(--cor-botao);
-      color: #fff;
+    aside button {
+      width: 100%;
+      padding: 10px 12px;
       border: none;
+      background-color: var(--primary-color);
+      color: white;
+      font-weight: bold;
       border-radius: 8px;
       cursor: pointer;
-      font-size: 1em;
-      transition: background-color 0.3s ease;
+      transition: background 0.3s ease;
     }
 
-    button:hover {
-      background-color: var(--cor-botao-hover);
+    aside button:hover {
+      background-color: #388e3c;
     }
 
-    .logout-btn {
-      background-color: var(--cor-logout);
+    .theme-toggle {
+      background: transparent;
+      color: var(--text-color);
+      border: 2px solid var(--text-color);
+      margin-top: auto;
     }
 
-    .logout-btn:hover {
-      background-color: var(--cor-logout-hover);
+    main.dashboard {
+      margin-left: 240px;
+      padding: 40px;
+      width: calc(100% - 240px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 10px;
+    }
+
+    #search {
+      padding: 12px;
+      width: 100%;
+      max-width: 400px;
+      margin: 20px 0;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+
+    #carousel {
+      background-color: var(--card-bg);
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px var(--shadow);
+      text-align: center;
+      width: 100%;
+      max-width: 400px;
+      transition: background 0.3s ease;
+    }
+
+    #carousel-cover {
+      width: 100%;
+      border-radius: 10px;
+      margin-bottom: 10px;
+    }
+
+    #musicas {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 30px;
+      max-width: 1000px;
+    }
+
+    .music-card {
+      background-color: var(--card-bg);
+      border-radius: 10px;
+      width: 150px;
+      padding: 10px;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 2px 6px var(--shadow);
+    }
+
+    .music-card:hover {
+      transform: scale(1.05);
+    }
+
+    .music-card img {
+      width: 100%;
+      border-radius: 8px;
+    }
+
+    .music-card h4 {
+      margin: 10px 0 4px;
+      font-size: 1rem;
+    }
+
+    .music-card p {
+      font-size: 0.85rem;
+      color: gray;
+      margin: 0;
+    }
+
+    audio {
+      width: 100%;
+      margin-top: 10px;
+    }
+
+    @media (max-width: 768px) {
+  body {
+    flex-direction: column;
+  }
+
+  aside {
+    width: 100%;
+    height: auto;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    gap: 10px;
+    padding: 10px;
+  }
+
+  aside img {
+    width: 60px;
+  }
+
+  aside h2, aside p {
+    display: none;
+  }
+
+  aside button {
+    padding: 8px;
+    font-size: 0.8rem;
+  }
+
+  main.dashboard {
+    padding: 20px;
+  }
+
+  #carousel-cover {
+    width: 100%;
+    max-width: 250px;
+  }
+
+  .music-card {
+    width: 45%;
+    min-width: 140px;
+  }
+
+  #musicas {
+    gap: 10px;
+  }
+
+  input#search {
+    width: 100%;
+    max-width: 300px;
+    padding: 8px;
+    margin-top: 10px;
+  }
+
+  h1 {
+    font-size: 1.4rem;
+  }
+}
+
+button {
+  padding: 10px 15px;
+  background-color: #1db954;
+  border: none;
+  color: white;
+  cursor: pointer;
+  border-radius: 6px;
+  margin-left: 10px;
+}
+.search-bar {
+  text-align: center;
+  padding: 20px;
+}
+    @media (max-width: 768px) {
+      aside {
+        position: static;
+        width: 100%;
+        height: auto;
+        flex-direction: row;
+        justify-content: space-between;
+      }
+
+      main.dashboard {
+        margin-left: 0;
+        width: 100%;
+        padding: 20px;
+      }
     }
   </style>
 </head>
 <body>
-  <div id="dashboard">
-    <h2><i class="fas fa-user-circle"></i> Central do Usuário</h2>
-    <img id="user-avatar" src="img/anonimo.png" alt="Foto do usuário" />
-    <div class="user-info">
-      <p><strong>Nome:</strong> <span id="user-name">Carregando...</span></p>
-      <p><strong>Email:</strong> <span id="user-email">Carregando...</span></p>
+  <aside>
+    <img id="userphoto" src="img/anonimo.png" alt="Foto do usuário" />
+    <div>
+      <h2 id="username">Usuário</h2>
+      <p id="useremail">email@email.com</p>
     </div>
-    <button onclick="voltarParaInicio()"><i class="fas fa-arrow-left"></i> Voltar</button>
-    <button class="logout-btn" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</button>
-  </div>
+    <button onclick="window.location.href='index.html'">🏠 Central</button>
+    <button id="logout">🚪 Sair</button>
+    <button class="theme-toggle" id="themeToggle">🌓 Tema</button>
+  </aside>
 
-  <script type="module">
-    import { getAuth, signOut } from "https://www.gstatic.com/firebasejs/11.5.0/firebase-auth.js";
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.5.0/firebase-app.js";
-  
-    const firebaseConfig = {
-      apiKey: "AIzaSyAwgWr5YiF9AHFqELcumQUf2tbLSDllTVY",
-      authDomain: "login-4a2eb.firebaseapp.com",
-      projectId: "login-4a2eb",
-      storageBucket: "login-4a2eb.appspot.com",
-      messagingSenderId: "515123551208",
-      appId: "1:515123551208:web:99cd4d8cd241eb0aa3225d",
-      measurementId: "G-D9JHW7EDG1"
+  <main class="dashboard">
+    <h1>Olá, <span id="username-main">Usuário</span> 👋</h1>
+    <p>Explore músicas direto do seu painel.</p>
+    <div class="search-bar">
+      <input type="text" id="search" placeholder="Digite o nome da música ou artista" />
+      <button onclick="buscarMusicas()">Buscar</button>
+    </div>
+    <div id="carousel">
+      <img id="carousel-cover" src="" alt="Capa do álbum" />
+      <h3 id="carousel-title">Título</h3>
+      <p id="carousel-artist">Artista</p>
+      <audio id="carousel-audio" controls></audio>
+      <div style="margin-top: 10px;">
+        <button onclick="musicaAnterior()">⬅️ Anterior</button>
+        <button onclick="proximaMusica()">Próxima ➡️</button>
+      </div>
+    </div>
+
+    <div id="musicas"></div>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/fetch-jsonp@1.1.3/build/fetch-jsonp.min.js"></script>
+  <script>
+    const username = localStorage.getItem("username") || "Usuário";
+    const useremail = localStorage.getItem("useremail") || "email@email.com";
+    const userphoto = localStorage.getItem("userphoto");
+
+    document.getElementById("username").textContent = username;
+    document.getElementById("username-main").textContent = username;
+    document.getElementById("useremail").textContent = useremail;
+
+    if (userphoto) document.getElementById("userphoto").src = userphoto;
+
+    const themeToggle = document.getElementById("themeToggle");
+    if (localStorage.getItem("theme") === "dark") document.body.classList.add("dark");
+
+    themeToggle.addEventListener("click", () => {
+      document.body.classList.toggle("dark");
+      localStorage.setItem("theme", document.body.classList.contains("dark") ? "dark" : "light");
+    });
+
+    document.getElementById("logout").addEventListener("click", () => {
+      localStorage.clear();
+      window.location.href = "index.html";
+    });
+
+    let musicasCarrossel = [];
+    let indiceAtual = 0;
+
+    function atualizarCarrossel() {
+      if (!musicasCarrossel.length) return;
+      const musica = musicasCarrossel[indiceAtual];
+      document.getElementById("carousel-cover").src = musica.album.cover_big;
+      document.getElementById("carousel-title").textContent = musica.title;
+      document.getElementById("carousel-artist").textContent = musica.artist.name;
+      const audio = document.getElementById("carousel-audio");
+      audio.src = musica.preview;
+      audio.load();
+      // audio.play(); // Descomente se quiser autoplay (não recomendado para UX sem interação)
+    }
+
+    function musicaAnterior() {
+      if (indiceAtual > 0) {
+        indiceAtual--;
+        atualizarCarrossel();
+      }
+    }
+
+    function proximaMusica() {
+      if (indiceAtual < musicasCarrossel.length - 1) {
+        indiceAtual++;
+        atualizarCarrossel();
+      }
+    }
+
+    document.getElementById("carousel-audio").addEventListener("ended", () => {
+      if (indiceAtual < musicasCarrossel.length - 1) {
+        indiceAtual++;
+        atualizarCarrossel();
+      }
+    });
+
+    function buscarMusicas() {
+      const query = document.getElementById("search").value;
+      const url = `https://api.deezer.com/search?q=${encodeURIComponent(query)}&output=jsonp`;
+
+      fetchJsonp(url)
+        .then(res => res.json())
+        .then(data => {
+          const musicasDiv = document.getElementById("musicas");
+          musicasDiv.innerHTML = "";
+          musicasCarrossel = data.data;
+          indiceAtual = 0;
+          atualizarCarrossel();
+
+          data.data.forEach((musica, index) => {
+            const card = document.createElement("div");
+            card.className = "music-card";
+            card.innerHTML = `
+              <img src="${musica.album.cover_medium}" alt="${musica.title}" />
+              <h4>${musica.title}</h4>
+              <p>${musica.artist.name}</p>
+            `;
+            card.onclick = () => {
+  const userName = localStorage.getItem("username");
+  if (!userName) {
+    window.location.href = "login.html";
+    return;
+  }
+
+  indiceAtual = index;
+  atualizarCarrossel();
+  document.getElementById("carousel").scrollIntoView({ behavior: "smooth" });
+};
+
+            musicasDiv.appendChild(card);
+          });
+        })
+        .catch(err => console.error("Erro ao buscar músicas:", err));
+    }
+
+    window.onload = () => {
+      document.getElementById("search").value = "ODNOGO ULTRAFUNK";
+      buscarMusicas();
     };
-  
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-  
-    // Dados do localStorage
-    const nome = localStorage.getItem('username');
-    const email = localStorage.getItem('useremail');
-    const foto = localStorage.getItem('userphoto');
-  
-    document.getElementById('user-name').innerText = nome || "Não identificado";
-    document.getElementById('user-email').innerText = email || "Não identificado";
-  
-    if (foto) {
-      document.getElementById('user-avatar').src = foto;
-    } else {
-      document.getElementById('user-avatar').src = 'img/anonimo.png';
-    }
-  
-    // Voltar
-    window.voltarParaInicio = function () {
-      window.location.href = 'index.html';
-    }
-  
-    // Logout seguro
-    window.logout = function () {
-      signOut(auth).then(() => {
-        localStorage.removeItem('username');
-        localStorage.removeItem('useremail');
-        localStorage.removeItem('userphoto');
-        window.location.href = 'login.html';
-      }).catch((error) => {
-        console.error("Erro ao fazer logout:", error);
-      });
-    }
   </script>
-  
 </body>
 </html>
-

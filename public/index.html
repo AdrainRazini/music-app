@@ -6,47 +6,146 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>🎵 MyMusic</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #121212;
-      color: white;
-      margin: 0;
-      padding: 0;
-    }
+   body {
+  font-family: Arial, sans-serif;
+  background-color: #121212;
+  color: white;
+  margin: 0;
+  padding: 0;
+}
 
-    .top-bar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background-color: #1db954;
-      padding: 10px 20px;
-      color: white;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-    }
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #1db954;
+  padding: 10px 20px;
+  color: white;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
 
-    .top-bar .logo {
-      font-size: 22px;
-      font-weight: bold;
-    }
+.top-bar .logo {
+  font-size: 22px;
+  font-weight: bold;
+}
 
-    #user {
-      width: 45px;
-      height: 45px;
-      border-radius: 50%;
-      cursor: pointer;
-      transition: transform 0.2s ease;
-    }
+#user {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
 
-    #user:hover {
-      transform: scale(1.05);
-    }
+#user:hover {
+  transform: scale(1.05);
+}
 
-    .search-bar {
-      text-align: center;
-      padding: 20px;
-    }
+.search-bar {
+  text-align: center;
+  padding: 20px;
+}
 
-     /* Container do menu (inicialmente oculto no mobile) */
+input {
+  padding: 10px;
+  width: 300px;
+  border-radius: 6px;
+  border: none;
+}
+
+button {
+  padding: 10px 15px;
+  background-color: #1db954;
+  border: none;
+  color: white;
+  cursor: pointer;
+  border-radius: 6px;
+  margin-left: 10px;
+}
+
+.section-title {
+  margin: 0 20px;
+  font-size: 20px;
+  color: #1db954;
+}
+
+.music-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
+
+.music-card {
+  background-color: #222;
+  border-radius: 10px;
+  padding: 10px;
+  text-align: center;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.music-card:hover {
+  transform: scale(1.03);
+}
+
+.music-card img {
+  width: 100%;
+  border-radius: 10px;
+}
+
+.carousel-section {
+  background-color: #1e1e1e;
+  padding: 20px;
+  margin: 20px;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+
+.carousel-container {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.carousel-container img {
+  width: 200px;
+  border-radius: 12px;
+}
+
+.carousel-info {
+  flex: 1;
+  min-width: 200px;
+}
+
+.carousel-info h2 {
+  margin: 0 0 10px;
+}
+
+.carousel-info p {
+  margin: 0 0 10px;
+}
+
+footer {
+  text-align: center;
+  padding: 20px;
+  font-size: 14px;
+  color: #aaa;
+}
+
+/* Menu hambúrguer */
+.menu-toggle {
+  display: none;
+  font-size: 24px;
+  color: #fff;
+  cursor: pointer;
+  padding: 10px;
+  display: block;
+}
+
+/* Menu navegação */
 .menu-nav {
   background-color: #121212;
   border-bottom: 1px solid #1db954;
@@ -59,7 +158,6 @@
   padding: 10px 0;
 }
 
-/* Quando ativado (ex: via JS) */
 .menu-nav.active {
   display: block;
   animation: fadeIn 0.3s ease-in-out;
@@ -70,7 +168,6 @@
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* Lista de links */
 .menu-nav ul {
   list-style: none;
   margin: 0;
@@ -81,13 +178,11 @@
   gap: 12px;
 }
 
-/* Itens do menu */
 .menu-nav li {
   width: 100%;
   text-align: center;
 }
 
-/* Links e botões do menu */
 .menu-nav a,
 .menu-nav button {
   color: #fff;
@@ -110,17 +205,7 @@
   border-radius: 6px;
 }
 
-/* Botão do menu (hambúrguer) */
-.menu-toggle {
-  display: none;
-  font-size: 24px;
-  color: #fff;
-  cursor: pointer;
-  padding: 10px;
-  display: block;
-}
-
-/* Exibir no mobile */
+/* Responsivo para telas menores */
 @media (max-width: 768px) {
   .menu-toggle {
     display: block;
@@ -138,96 +223,6 @@
   }
 }
 
-
-
-    input {
-      padding: 10px;
-      width: 300px;
-      border-radius: 6px;
-      border: none;
-    }
-
-    button {
-      padding: 10px 15px;
-      background-color: #1db954;
-      border: none;
-      color: white;
-      cursor: pointer;
-      border-radius: 6px;
-      margin-left: 10px;
-    }
-
-    .section-title {
-      margin: 0 20px;
-      font-size: 20px;
-      color: #1db954;
-    }
-
-    .music-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 20px;
-      padding: 20px;
-    }
-
-    .music-card {
-      background-color: #222;
-      border-radius: 10px;
-      padding: 10px;
-      text-align: center;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.5);
-      cursor: pointer;
-      transition: transform 0.2s ease;
-    }
-
-    .music-card:hover {
-      transform: scale(1.03);
-    }
-
-    .music-card img {
-      width: 100%;
-      border-radius: 10px;
-    }
-
-    .carousel-section {
-      background-color: #1e1e1e;
-      padding: 20px;
-      margin: 20px;
-      border-radius: 12px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.5);
-    }
-
-    .carousel-container {
-      display: flex;
-      align-items: center;
-      gap: 20px;
-      flex-wrap: wrap;
-    }
-
-    .carousel-container img {
-      width: 200px;
-      border-radius: 12px;
-    }
-
-    .carousel-info {
-      flex: 1;
-      min-width: 200px;
-    }
-
-    .carousel-info h2 {
-      margin: 0 0 10px;
-    }
-
-    .carousel-info p {
-      margin: 0 0 10px;
-    }
-
-    footer {
-      text-align: center;
-      padding: 20px;
-      font-size: 14px;
-      color: #aaa;
-    }
   </style>
 </head>
 <body>
@@ -356,9 +351,17 @@ function buscarMusicas() {
     <p>${musica.artist.name}</p>
   `;
   card.onclick = () => {
-    indiceAtual = index;
-    atualizarCarrossel();
-  };
+  const userName = localStorage.getItem("username");
+  if (!userName) {
+    window.location.href = "login.html";
+    return;
+  }
+
+  indiceAtual = index;
+  atualizarCarrossel();
+  document.getElementById("carousel").scrollIntoView({ behavior: "smooth" });
+};
+
   musicasDiv.appendChild(card);
 });
     })
