@@ -15,12 +15,27 @@
     }
 
     body {
-      background: #128C7E;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-    }
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: url('img/login.png') repeat-x center center;
+  background-size: cover;
+  animation: moverFundo 600s linear infinite;
+}
+
+@keyframes moverFundo {
+  from {
+    background-position-x: 0;
+  }
+  to {
+    background-position-x: 10000px;
+  }
+}
+
 
     #login-page {
       background: white;
