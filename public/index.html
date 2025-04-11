@@ -348,19 +348,19 @@ function buscarMusicas() {
       atualizarCarrossel();
 
       data.data.forEach((musica, index) => {
-        const card = document.createElement("div");
-        card.className = "music-card";
-        card.innerHTML = `
-          <img src="${musica.album.cover_medium}" alt="${musica.title}" />
-          <h4>${musica.title}</h4>
-          <p>${musica.artist.name}</p>
-        `;
-        card.onclick = () => {
-          indiceAtual = index;
-          atualizarCarrossel();
-        };
-        musicasDiv.appendChild(card);
-      });
+  const card = document.createElement("div");
+  card.className = "music-card";
+  card.innerHTML = `
+    <img src="${musica.album.cover_medium}" alt="${musica.title}" />
+    <h4>${musica.title}</h4>
+    <p>${musica.artist.name}</p>
+  `;
+  card.onclick = () => {
+    indiceAtual = index;
+    atualizarCarrossel();
+  };
+  musicasDiv.appendChild(card);
+});
     })
     .catch(error => {
       console.error("Erro ao buscar músicas:", error);
