@@ -13,6 +13,7 @@ const PORT = process.env.PORT || 3000;
 
 const users = {}; // Armazena usuários logados
 
+
 // Configura a pasta pública para servir os arquivos HTML, CSS e JS
 app.use(express.static('public'));
 

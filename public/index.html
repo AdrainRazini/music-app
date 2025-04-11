@@ -141,9 +141,12 @@
   
   <div class="top-bar">
     <div class="logo">🎵 MyMusic</div>
-    <img id="user" src="img/anonimo.png" alt="Foto do usuário" />
+    <div>
+      <span id="username-display"></span>
+      <img id="user" src="img/anonimo.png" alt="Foto do usuário" />
+    </div>
   </div>
-
+  
   <div class="search-bar">
     <input type="text" id="search" placeholder="Digite o nome da música ou artista" />
     <button onclick="buscarMusicas()">Buscar</button>
@@ -184,6 +187,10 @@
       window.location.href = destino;
     });
 
+const userName = localStorage.getItem('username');
+if (userName) {
+  document.getElementById('username-display').textContent = userName;
+}
 
 
     let musicasCarrossel = [];
